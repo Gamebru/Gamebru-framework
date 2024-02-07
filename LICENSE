@@ -1,4 +1,5 @@
-Copyright (C) 2023-2024 Gamebru_Comunity, Inc - All Rights Reserved
+
+Copyright (C) 2023-2024 Gamebru_Comunity
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
 
@@ -8,10 +9,9 @@ The distribution of a modified version of the software is subject to the followi
 * The names of the authors may not be used to endorse or promote products derived from this software without specific prior written permission,
 * Altered source versions must not be misrepresented as being the original software, and
 * The license notice must not be removed from source distributions.
-* The license does not require source code to be made available if distributing binary code.
 
-Additionally, any direct clone or redistribution of this software must be exclusively for use in the C programming language. Any modifications or adaptations of this software for use in other programming languages are strictly prohibited.
+Additionally, any direct clone or redistribution of this software must be exclusively for use in the C programming language, Creating bindings and wrappers of it or it's direct clone in other Programming languages is prohibited.
 
-Given C's declining popularity and the prevalent preference for languages such as Python, javascript, C++, this restriction aims to promote the relevance and adoption of the C programming language. Recognizing the unique strengths and characteristics of C, including performance, simplicity, and compatibility with existing systems, this license seeks to support efforts to maintain and enhance the usage of C within the development community.
+Given C's declining popularity and the prevalent preference for languages such as Python, JavaScript, C++, this restriction aims to promote the relevance and adoption of the C programming language. 
 
-Further more please note that the Usage of this software in the C programming language does not imply that the codebase can't include other languages. The restriction pertains to the usage of the software, not the composition of the codebase.
+Furthermore, please note that the usage of this software in the C programming language does not imply that the codebase can't include other languages. The restriction pertains to the usage of the software, not the composition of it's codebase.
