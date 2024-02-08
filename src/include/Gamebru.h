@@ -4,7 +4,9 @@
 // Include necessary SDL headers
 #include<SDL2/SDL.h>
 // Function declaration for initializing SDL
-int Bru_Init();
+int Game_Init();
+void Game_Delay();
+void Game_Quit();
 
 /* GAMEBRU_H */
 #endif 
