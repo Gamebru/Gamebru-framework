@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<math.h>
-#include<SDL2/SDL.h> 
+#include<Gamebru.h> 
 // Define abstracted window flags
 typedef enum {
     Window_Fullscreen=SDL_WINDOW_FULLSCREEN,
@@ -31,29 +31,22 @@ SDL_Window*window; //global variable
 int Game_Init(char* title,int win_width,int win_height, WindowFlag win_flags ){
 
 // =====SDL Init=====
-if (SDL_Init(SDL_INIT_EVERYTHING)<0){
-    printf("Failed to initialize Gamebru!\n");
-    return -1;
-}
+SDL_Init(SDL_INIT_EVERYTHING);
     
  //===== Window creation=====
  // placing an abstraction on winposition, it's set to undefined on default, users don't need to worry about it
  // placing an abstraction on window flag
 	window=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,win_width,win_height,win_flags);
-	 if (window == NULL) {
-        fprintf(stderr, "Error creating window\n");
-        SDL_Quit();
-        return -1;
-    }
+
    
 	return 0; // return's 0 if initializing and window creation is successful
 }// Game init
 
-//*****Game Delay function*****
-void Game_Delay(int sec){
-	// converts seconds to mili seconds
-	int sec2=sec*1000;
-	SDL_Delay(sec2);
+void Game_Delay(float sec){
+    // converts seconds to milliseconds
+    // so users can easily type 3 instead of 3000 and can type 0.003 if they wan'ts it in milli
+    int msec = (int)(sec * 1000);
+    SDL_Delay(msec);
 }
 
 //*****Game Quit function*****
@@ -86,7 +79,7 @@ void Game_Quit(){
 /// test run
 int main ( ){
 	Game_Init("Title",800,400,Window_Shown);
-	Game_Delay(3); // in sec on milli sec !
+	Game_Delay(0.3); // in sec on milli sec !
 	Game_Quit();
 	return 0;
 }
