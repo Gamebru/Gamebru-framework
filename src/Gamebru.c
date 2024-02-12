@@ -26,11 +26,19 @@ typedef enum {
     Window_Tooltip=SDL_WINDOW_TOOLTIP,
     Window_Popup_Menu=SDL_WINDOW_POPUP_MENU,
 } WindowFlag;
+
+//renderer flags aliases
+typedef enum {
+    Renderer_Software = SDL_RENDERER_SOFTWARE,
+    Renderer_Accelerated = SDL_RENDERER_ACCELERATED,
+    Renderer_PresentVsync = SDL_RENDERER_PRESENTVSYNC,
+    Renderer_TargetTexture = SDL_RENDERER_TARGETTEXTURE
+} RendererFlags;
 //-----Global variables
 SDL_Window*window;
 SDL_Renderer*renderer;
 //*****Game init function*****
-int Game_Init(char* title,int win_width,int win_height, WindowFlag win_flags ){
+int Game_Init(char* title,int win_width,int win_height, WindowFlag win_flags, RendererFlags renderer_flag ){
 
 // =====SDL Init=====
 SDL_Init(SDL_INIT_EVERYTHING);
@@ -39,7 +47,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
  // placing an abstraction on winposition, it's set to undefined on default, users don't need to worry about it
  // placing an abstraction on window flag
 	window=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,win_width,win_height,(Uint32)win_flags);
-	return 0; // return's 0 if initializing and window creation is successful
+	renderer = SDL_CreateRenderer(window, -1, (Uint32)renderer_flag);
+	return 0; // return's 0 if initializing, rendering and window creation is successful
 }// Game init
 
 void Game_Delay(float sec){
@@ -55,18 +64,6 @@ void Game_Quit(){
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
-typedef enum {
-    Renderer_Software = SDL_RENDERER_SOFTWARE,
-    Renderer_Accelerated = SDL_RENDERER_ACCELERATED,
-    Renderer_PresentVsync = SDL_RENDERER_PRESENTVSYNC,
-    Renderer_TargetTexture = SDL_RENDERER_TARGETTEXTURE
-} RendererFlags;
-
-int Gfx_settings(RendererFlags renderer_flag){
-    renderer = SDL_CreateRenderer(window, -1, (Uint32)renderer_flag);
-    return 0;
-}
-
 
 
 
@@ -84,8 +81,7 @@ int Gfx_settings(RendererFlags renderer_flag){
 
 /// test run
 int main ( ){
-	Game_Init("Title",800,400,Window_Shown);
-	Gfx_settings( Renderer_Accelerated);
+	Game_Init("Title",800,400,Window_Shown, Renderer_Accelerated);
 	Game_Delay(0.3); // in sec on milli sec !
 	Game_Quit();
 	return 0;

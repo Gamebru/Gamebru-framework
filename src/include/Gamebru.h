@@ -27,8 +27,17 @@ typedef enum {
     Window_Popup_Menu = SDL_WINDOW_POPUP_MENU,
 } WindowFlag;
 
+//renderer flags aliases
+typedef enum {
+    Renderer_Software = SDL_RENDERER_SOFTWARE,
+    Renderer_Accelerated = SDL_RENDERER_ACCELERATED,
+    Renderer_PresentVsync = SDL_RENDERER_PRESENTVSYNC,
+    Renderer_TargetTexture = SDL_RENDERER_TARGETTEXTURE
+} RendererFlags;
+
+
 // Function declarations
-int Game_Init(char* title, int win_width, int win_height, WindowFlag win_flags);
+int Game_Init(char* title, int win_width, int win_height, WindowFlag win_flags, RendererFlags renderer_flag );
 void Game_Delay(float sec);
 void Game_Quit();
 
