@@ -35,8 +35,11 @@ typedef enum {
     Renderer_TargetTexture = SDL_RENDERER_TARGETTEXTURE
 } RendererFlags;
 //-----Global variables
-SDL_Window*window;
-SDL_Renderer*renderer;
+// btw i Enclosed all global variables names with underscore to prevent conflict if someone try's to use those names unknowningly 
+SDL_Window*_window_;
+SDL_Renderer*_renderer_;
+SDL_Texture*_texture_;
+int _Red_=1, _Blue_=2, _Green_=3, _Yellow_=4,_Black_=5,_White_=6,_Orange_=7,_Purple_=8,_Pink_=9,_Brown_=10,_Cyan_=11,_Magenta_=12,_Gold_=13,_Silver_=14,_Violet_=15;
 //*****Game init function*****
 int Game_Init(char* title,int win_width,int win_height, WindowFlag win_flags, RendererFlags renderer_flag ){
 
@@ -46,8 +49,8 @@ SDL_Init(SDL_INIT_EVERYTHING);
  //===== Window creation=====
  // placing an abstraction on winposition, it's set to undefined on default, users don't need to worry about it
  // placing an abstraction on window flag
-	window=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,win_width,win_height,(Uint32)win_flags);
-	renderer = SDL_CreateRenderer(window, -1, (Uint32)renderer_flag);
+	_window_=SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,win_width,win_height,(Uint32)win_flags);
+	_renderer_ = SDL_CreateRenderer(_window_, -1, (Uint32)renderer_flag);
 	return 0; // return's 0 if initializing, rendering and window creation is successful
 }// Game init
 
@@ -60,19 +63,31 @@ void Game_Delay(float sec){
 
 //*****Game Quit function*****
 void Game_Quit(){
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyTexture(_texture_);
+	SDL_DestroyRenderer(_renderer_);
+	SDL_DestroyWindow(_window_);
 	SDL_Quit();
+}
+//===== set render color=====
+// i limited it from RGBA to just RGB besides nobody really cares about alpha so i set the value to 255 on default
+void Set_Color_RGBA(int R, int G, int B, int A){
+	SDL_SetRenderDrawColor(_renderer_, R, G, B, A);
+}
+void Set_Color(int Color_name){
+	switch (Color_name){// Check line 42 on this file to see all color numbering
+		case 1:	SDL_SetRenderDrawColor(_renderer_, 255, 0, 0, 255); //red
+		break;
+		case 2:	SDL_SetRenderDrawColor(_renderer_, 255, 0, 0, 255);//blue
+		break;
+		case 3:	SDL_SetRenderDrawColor(_renderer_, 255, 0, 0, 255);//Green
+		break;
+	}
 }
 
 
-
-
-
-
-
-
-
+void Refresh(){
+	SDL_RenderPresent(_renderer_);
+}
 
 
 
@@ -81,7 +96,10 @@ void Game_Quit(){
 
 /// test run
 int main ( ){
-	Game_Init("Title",800,400,Window_Shown, Renderer_Accelerated);
+	Game_Init("Title",800,400,Window_Shown,Renderer_Accelerated);
+	Set_Color_RGBA(255, 0, 0, 255);
+	Set_Color(_Red_); 
+	Refresh ( );
 	Game_Delay(0.3); // in sec on milli sec !
 	Game_Quit();
 	return 0;
