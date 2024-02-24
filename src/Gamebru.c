@@ -83,8 +83,26 @@ void Set_Color(int Color_name){
 		break;
 	}
 }
+// Draw shapes
+typedef struct{
+	int x;
+	int y;
+	int w;
+	int h;
+}Rect;
 
-
+Rect Draw_Rectangle (int x, int y, int w, int h){
+	Rect rect;
+	rect.x=x;
+	rect.y=y;
+	rect.w=w;
+	rect.h=h;
+	return rect;
+}
+// Fill color
+void Color_Fill (const SDL_Rect *rect){
+    SDL_RenderFillRect(_renderer_, rect);
+}
 void Refresh(){
 	SDL_RenderPresent(_renderer_);
 }
@@ -93,14 +111,14 @@ void Refresh(){
 
 
 
-
 /// test run
 int main ( ){
 	Game_Init("Title",800,400,Window_Shown,Renderer_Accelerated);
-	Set_Color_RGBA(255, 0, 0, 255);
-	Set_Color(_Red_); 
+	Rect shape = Draw_Rectangle(100, 100, 200, 150);
+	Set_Color(_Red_);
+    Color_Fill(&shape);
 	Refresh ( );
-	Game_Delay(0.3); // in sec on milli sec !
+	Game_Delay(70); // in sec on milli sec !
 	Game_Quit();
 	return 0;
 }
